@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"golang-redis-morty/connection"
-	"golang-redis-morty/service"
+	"golang-redis-morty/services"
 
 	"github.com/go-redis/redis"
 )
