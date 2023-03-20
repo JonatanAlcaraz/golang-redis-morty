@@ -2,13 +2,13 @@ package service
 
 import (
 	"encoding/json"
-	"golang-redis-morty/conection"
+	"golang-redis-morty/connection"
 	"log"
 	"net/http"
 )
 
 
-func GetRickAndMortyCharacters(url string, c chan<- []*conection.Character) {
+func GetRickAndMortyCharacters(url string, c chan<- []*connection.Character) {
     resp, err := http.Get(url)
     if err != nil {
         log.Fatal(err)
@@ -16,7 +16,7 @@ func GetRickAndMortyCharacters(url string, c chan<- []*conection.Character) {
     defer resp.Body.Close()
 
     var response struct {
-        Results []*conection.Character `json:"results"`
+        Results []*connection.Character `json:"results"`
     }
     err = json.NewDecoder(resp.Body).Decode(&response)
     if err != nil {

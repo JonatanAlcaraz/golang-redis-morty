@@ -1,4 +1,4 @@
-package conection
+package connection
 
 import (
 	"encoding/json"

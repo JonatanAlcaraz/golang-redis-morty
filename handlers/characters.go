@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"golang-redis-morty/conection"
+	"golang-redis-morty/connection"
 	"golang-redis-morty/service"
 
 	"github.com/go-redis/redis"
@@ -19,14 +19,14 @@ func GetCharactersHandler(w http.ResponseWriter, r *http.Request) {
 
 	key := "rick-and-morty-characters"
 
-	characters, err := conection.GetCharacters(client, key)
+	characters, err := connection.GetCharacters(client, key)
 	if err != nil {
 		fmt.Println("No se encontro la siguiente key en redis:", key)
-		c := make(chan []*conection.Character)
+		c := make(chan []*connection.Character)
 		go service.GetRickAndMortyCharacters("https://rickandmortyapi.com/api/character", c)
 		characters = <-c
 
-		conection.SaveCharacters(client, key, characters)
+		connection.SaveCharacters(client, key, characters)
 	}
 
 	w.Header().Set("Content-Type", "application/json")
