@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  api:
+    image: golang-redis:dev
+    ports:
+      - "3000:3000"
+    depends_on:
+      - redis
+    environment:
+      - REDIS_ADDR=redis:6379
+    networks:
+      - golang-redis
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - golang-redis
+
+networks:
+  golang-redis:
